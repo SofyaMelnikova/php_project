@@ -42,6 +42,8 @@ try {
     exit;
 }
 
+
+
 ob_start();
 $application->run();
 ob_flush();

@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #FAF0E6;
+    overflow: auto;
+
+    padding: 20px 100px;
+}
+
+.main-form {
+    width: 1200px;
+    border: 1px solid #000;
+    left: 25%;
+    margin: auto;
+}
+
+.table {
+    display: flex;
+    width: 100%;
+}
+
+.cell {
+    border-bottom:  1px solid #000;
+}
+
+.left {
+    border-right: 1px solid #000;
+    border-bottom:  1px solid #000;
+    width: 50%;
+}
+
+.right {
+    border-bottom:  1px solid #000;
+    width: 50%;
+    /*border: 1px solid #000;*/
+}
+
+.handwrite {
+    color: crimson;
+    font-family: "Trebuchet MS", serif;
+}
+
+.btn {
+    border: 1px solid crimson;
+    border-radius: 5px;
+    background: antiquewhite;
+}
+.max {
+    width: 60px;
+    height: 40px;
+    font-size: 18px;
+}
+
+input {
+    padding: 5px;
+    margin: 10px;
+}
+
+p {
+    margin: 10px;
+    padding: 20px 30px;
+}
+
+img {
+    width: 50%;
+}

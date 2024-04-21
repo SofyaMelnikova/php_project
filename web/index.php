@@ -1,5 +1,6 @@
 <?php
 
+use app\controllers\AboutController;
 use app\controllers\MainController;
 use app\core\Application;
 use app\core\ConfigParser;
@@ -32,6 +33,7 @@ $application = new Application();
 
 try {
     $application->setRoute(Request::GET, "/", [new MainController(), "getView"]);
+    $application->setRoute(Request::GET, "/about", [new AboutController(), "getView"]);
     $application->setRoute(Request::GET, "/500err", "");
 
     $application->setRoute(Request::POST, "/handle", [new MainController(), "handleView"]);
@@ -39,8 +41,6 @@ try {
     //log
     exit;
 }
-
-
 
 ob_start();
 $application->run();

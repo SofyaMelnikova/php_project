@@ -4,6 +4,7 @@ use app\controllers\AboutController;
 use app\controllers\MainController;
 use app\core\Application;
 use app\core\ConfigParser;
+use app\core\IniConfigParser;
 use app\core\Request;
 use app\exceptions\RouteException;
 
@@ -18,13 +19,16 @@ spl_autoload_register(function ($classname) {
 });
 
 date_default_timezone_set("Europe/Moscow");
+
 ConfigParser::load();
+IniConfigParser::loadSection("Main");
+
 $app_env = getenv("APP_ENV");
-if ($app_env=="dev") {
+if ($app_env == "dev") {
     error_reporting(E_ALL);
     ini_set("display_errors", "1");
     ini_set("log_errors", "1");
-    ini_set("error_log", PROJECT_DIR."/runtime/logs/".getenv("PHP_LOG"));
+    ini_set("error_log", PROJECT_DIR . getenv("PHP_LOG_ROOT"));
 }
 
 $application = new Application();
@@ -41,7 +45,6 @@ try {
     //log
     exit;
 }
-
 
 
 ob_start();

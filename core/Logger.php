@@ -2,7 +2,9 @@
 declare(strict_types=1);
 namespace app\core;
 
-class Logger extends \Psr\Log\AbstractLogger
+use Psr\Log\AbstractLogger;
+
+class Logger extends AbstractLogger
 {
 
     private string $filename;

@@ -1,15 +1,13 @@
-<?php
-setlocale(LC_TIME, "ru-RU");
-echo "Добрый вечер, сегодня " . date("l j F");
-?>
-
+<?php class_exists('app\core\Template') or exit; ?>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
+    <meta charset="UTF-8">
     <title>Введите данные</title>
-    <meta charset="UTF-8"/>
 </head>
 <body>
-<form action="handle" method="POST" style="display: flex; flex-direction: column; ">
+ 
+<form action="<?= $action ?>" method="POST" style="display: flex; flex-direction: column; ">
 
     <label>Имя
         <input type="text" name="first_name"/>
@@ -32,5 +30,9 @@ echo "Добрый вечер, сегодня " . date("l j F");
     <input type="submit" value="Погнали">
 
 </form>
+
 </body>
 </html>
+
+
+

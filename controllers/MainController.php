@@ -6,12 +6,14 @@ use app\core\Application;
 use app\core\Request;
 use app\core\Response;
 use app\exceptions\FileException;
+use app\mappers\UserMapper;
+use app\models\User;
 
 class MainController
 {
     public function getView(Request $request): void
     {
-        Application::$app->getRouter()->renderView("form");
+        Application::$app->getRouter()->renderTemplate("index.html", ["action"=>"handle"]);
     }
 
     /**
@@ -19,40 +21,23 @@ class MainController
      */
     public function handleView(Request $request): void
     {
-
+        $users = [];
         try {
-            $this->writeBody($request->getBody());
-        } catch (FileException $e) {
-            echo $e->getMessage();
-            Application::$app->getResponse()->setStatusCode(Response::HTTP_SERVER_ERROR);
-        }
-        echo "Success";
-    }
+           $mapper = new UserMapper();
+           $user = $mapper->createObject($request->getBody());
+           $mapper->Insert($user);
+           $users = $mapper->SelectAll();
 
-    /**
-     * @throws FileException
-     */
-    private function writeBody(array $getBody): void
-    {
-        $filename = PROJECT_DIR . "/runtime/body.txt";
-        $f = @fopen($filename, "rb+");
-        if (!$f) {
-            throw new FileException($filename, "Can't open output file");
-        };
-        try {
-            foreach ($getBody as $key => $value) {
-
-                fwrite($f, "$key=$value&");
-            }
-
-
-            ftruncate($f, ftell($f)-1 );
         } catch (\Exception $e) {
+            Application::$app->getLogger()->error($e);
+            Application::$app->getResponse()->setStatusCode(Response::HTTP_SERVER_ERROR);
 
-            throw new FileException($filename,"Can't write data", previous: $e);
         }
-        fclose($f);
+
+       Application::$app->getRouter()->renderTemplate("success.html", ["users"=>$users]);
     }
+
+
 
 
 }

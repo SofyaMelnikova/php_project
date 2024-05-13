@@ -7,52 +7,50 @@ namespace app\mappers;
 use app\core\Mapper;
 use app\core\Model;
 use app\models\User;
+use PDOStatement;
 
 class UserMapper extends Mapper
 {
-
-    private \PDOStatement $select;
-    private \PDOStatement $selectAll;
-    private \PDOStatement $insert;
-    private \PDOStatement $update;
-    private \PDOStatement $delete;
+    private PDOStatement $select;
+    private PDOStatement $selectAll;
+    private PDOStatement $insert;
+    private PDOStatement $update;
+    private PDOStatement $delete;
 
 
     public function __construct()
     {
         parent::__construct();
-        $this->select = $this->pdo->prepare("SELECT * FROM users WHERE id = :id");
+        $this->select = $this->pdo->prepare("SELECT * FROM usr WHERE id = :id");
 
-        $this->selectAll = $this->pdo->prepare("SELECT * FROM users");
+        $this->selectAll = $this->pdo->prepare("SELECT * FROM usr");
 
         $this->insert = $this->pdo->prepare(
-            "INSERT INTO users(first_name, second_name, age, job, email, phone) 
-                VALUES (:first_name, :second_name, :age, :job, :email, :phone)"
+            "INSERT INTO usr(username, email, password, photo, description) 
+                VALUES (:username, :email, :password, :photo, :description)"
         );
 
-        $this->delete = $this->pdo->prepare("DELETE FROM users WHERE id = :id");
+        $this->delete = $this->pdo->prepare("DELETE FROM usr WHERE id = :id");
 
         $this->update = $this->pdo->prepare(
-            "UPDATE users 
-            SET first_name=:first_name,
-                second_name=:second_name,
-                age = :age,
-                job = :job,
+            "UPDATE usr
+            SET username = :username,
                 email = :email,
-                phone = :phone
-            WHERE id=:id"
+                password = :password,
+                photo = :photo,
+                description = :description
+            WHERE id = :id"
         );
     }
 
     protected function doInsert(Model $model): Model
     {
         $this->insert->execute([
-            ":first_name" => $model->getFirstName(),
-            ":second_name" => $model->getSecondName(),
-            ":age" => $model->getAge(),
-            ":job" => $model->getJob(),
+            ":username" => $model->getUsername(),
             ":email" => $model->getEmail(),
-            ":phone" => $model->getPhone()
+            ":password" => $model->getPassword(),
+            ":photo" => $model->getPhoto(),
+            ":description" => $model->getDescription()
         ]);
         $model->setId((int)$this->pdo->lastInsertId());
         return $model;
@@ -60,13 +58,12 @@ class UserMapper extends Mapper
 
     protected function doUpdate(Model $model): void
     {
-        $this->insert->execute([
-            ":first_name" => $model->getFirstName(),
-            ":second_name" => $model->getSecondName(),
-            ":age" => $model->getAge(),
-            ":job" => $model->getJob(),
+        $this->update->execute([
+            ":username" => $model->getUsername(),
             ":email" => $model->getEmail(),
-            ":phone" => $model->getPhone()
+            ":password" => $model->getPassword(),
+            ":photo" => $model->getPhoto(),
+            ":description" => $model->getDescription()
         ]);
     }
 
@@ -96,12 +93,11 @@ class UserMapper extends Mapper
     {
        return new User(
            array_key_exists("id", $data)? $data["id"]: null,
-           $data["first_name"],
-           $data["second_name"],
-           (int)$data["age"],
-           $data["job"],
+           $data["username"],
            $data["email"],
-           $data["phone"]
+           $data["password"],
+           $data["photo"],
+           $data["description"]
        );
     }
 }

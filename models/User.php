@@ -8,128 +8,76 @@ use app\core\Model;
 
 class User extends Model
 {
-
-    private string $first_name;
-    private string $second_name;
-    private int $age;
-    private string $job;
+    private string $username;
     private string $email;
-    private string $phone;
+    private string $password;
+    private string $photo;
+    private string $description;
 
     /**
-     * @param int|null $id
-     * @param string $first_name
-     * @param string $second_name
-     * @param int $age
-     * @param string $job
+     * @param string $username
      * @param string $email
-     * @param string $phone
+     * @param string $password
+     * @param string $photo
+     * @param string $description
      */
-    public function __construct(?int $id, string $first_name, string $second_name, int $age, string $job, string $email, string $phone)
+    public function __construct(?int $id, string $username, string $email, string $password, string $photo, string $description)
     {
         parent::__construct($id);
-        $this->first_name = $first_name;
-        $this->second_name = $second_name;
-        $this->age = $age;
-        $this->job = $job;
+        $this->username = $username;
         $this->email = $email;
-        $this->phone = $phone;
+        $this->password = $password;
+        $this->photo = $photo;
+        $this->description = $description;
     }
 
-    /**
-     * @return string
-     */
-    public function getFirstName(): string
+    public function getUsername(): string
     {
-        return $this->first_name;
+        return $this->username;
     }
 
-    /**
-     * @param string $first_name
-     */
-    public function setFirstName(string $first_name): void
+    public function setUsername(string $username): void
     {
-        $this->first_name = $first_name;
+        $this->username = $username;
     }
 
-    /**
-     * @return string
-     */
-    public function getSecondName(): string
-    {
-        return $this->second_name;
-    }
-
-    /**
-     * @param string $second_name
-     */
-    public function setSecondName(string $second_name): void
-    {
-        $this->second_name = $second_name;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAge(): int
-    {
-        return $this->age;
-    }
-
-    /**
-     * @param int $age
-     */
-    public function setAge(int $age): void
-    {
-        $this->age = $age;
-    }
-
-    /**
-     * @return string
-     */
-    public function getJob(): string
-    {
-        return $this->job;
-    }
-
-    /**
-     * @param string $job
-     */
-    public function setJob(string $job): void
-    {
-        $this->job = $job;
-    }
-
-    /**
-     * @return string
-     */
     public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * @param string $email
-     */
     public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
-    /**
-     * @return string
-     */
-    public function getPhone(): string
+    public function getPassword(): string
     {
-        return $this->phone;
+        return $this->password;
     }
 
-    /**
-     * @param string $phone
-     */
-    public function setPhone(string $phone): void
+    public function setPassword(string $password): void
     {
-        $this->phone = $phone;
+        $this->password = $password;
     }
 
+    public function getPhoto(): string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): void
+    {
+        $this->photo = $photo;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
 }

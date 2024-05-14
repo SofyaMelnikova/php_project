@@ -16,20 +16,19 @@ class Migration_0 extends Migration
 
     function up(): void
     {
-        $this->database->getPdo()->query("CREATE TABLE if not exists users (
-                id serial primary key,
-                first_name varchar(50),
-                second_name varchar(50),
-                age int,
-                job varchar(300),
-                email varchar(100)
-            )        
-        ");
+        $this->database->getPdo()->query("create table usr (
+            id serial primary key,
+            username varchar(40),
+            email varchar(50),
+            password varchar,
+            photo varchar,
+            description text
+        );");
         parent::up();
     }
 
     function down(): void
     {
-        $this->database->getPdo()->query("DROP TABLE users");
+        $this->database->getPdo()->query("DROP TABLE usr");
     }
 }

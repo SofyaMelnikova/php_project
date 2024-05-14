@@ -16,13 +16,16 @@ class Migration_1 extends Migration
 
     function up(): void
     {
-        $this->database->getPdo()->query("ALTER TABLE users ADD COLUMN phone varchar(15)");
+        $this->database->getPdo()->query("create table genre(
+            id serial primary key,
+            name varchar(40)
+        );");
 
         parent::up();
     }
 
     function down(): void
     {
-        $this->database->getPdo()->query("ALTER TABLE users DROP COLUMN phone");
+        $this->database->getPdo()->query("ALTER TABLE genre DROP COLUMN phone");
     }
 }

@@ -6,7 +6,7 @@ namespace app\migrations;
 
 use app\core\Migration;
 
-class Migration_3 extends Migration
+class Migration_4 extends Migration
 {
 
     function getVersion(): int

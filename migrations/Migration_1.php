@@ -26,6 +26,6 @@ class Migration_1 extends Migration
 
     function down(): void
     {
-        $this->database->getPdo()->query("ALTER TABLE genre DROP COLUMN phone");
+        $this->database->getPdo()->query("drop table genre;");
     }
 }

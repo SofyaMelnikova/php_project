@@ -1,0 +1,28 @@
+{% foreach ($posts->getNextRow() as $post) : %}
+<div class="card-wrapper">
+
+    <div class="card-photo">
+        <img class="photo" src="<?= $post->getPhoto() ?>" alt="photo">
+    </div>
+
+    <div class="card-title accent">
+        <a href="/post?id=<?= $post->getId() ?>"><?= $post->getTitle() ?></a>
+    </div>
+
+    <div class="card-genre">
+        <p class="genre" id="categ" value=""><?= $post->getGenre() ?></p>
+    </div>
+
+    <div class="card-post-bottom" id="result">
+
+        <div class="bottom-user">
+            <img class="mess-photo" src="<?= $post->getAuthorPhoto() ?>" alt="photo">
+            <a class="bottom-username" href="/user?id=<?= $post->getAuthorId() ?>"><?= $post->getAuthor() ?></a>
+        </div>
+
+        <h1 class="card-post-date"><?= $post->getDate() ?></h1>
+
+    </div>
+
+</div>
+{% endforeach; %}

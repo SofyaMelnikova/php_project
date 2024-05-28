@@ -12,7 +12,7 @@ class Request
 
     public function getUri(): string
     {
-        return $_SERVER["REQUEST_URI"];
+        return $_SERVER["PHP_SELF"];
     }
 
     public function getMethod(): string

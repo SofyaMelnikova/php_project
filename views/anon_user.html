@@ -1,0 +1,85 @@
+{% include 'layout.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block main-link %}"/main"{% endblock %}
+{% block header-link %}<a href="/">Login</a>{% endblock %}
+
+{% block content %}
+
+<div class="main-form">
+
+
+    <div class="post">
+        <div class="post-left">
+
+            <img src="<?= $u->getPhoto() ?>" class="card-post-img" alt="photo">
+
+        </div>
+        <div class="card-post post-right">
+            <div class="main-post-title">
+                <p class="post-title accent">Profile by <?= $u->getUsername() ?></p>
+            </div>
+
+            <div class="post-desc">
+
+                <div class="info">
+                    <p class="label">Username: </p>
+                    <p><?= $u->getUsername() ?></p>
+                </div>
+
+                <div class="info">
+                    <p class="label">Email: </p>
+                    <p><?= $u->getEmail() ?></p>
+                </div>
+
+                <div class="info">
+                    <p class="label">Description: </p>
+                    <p><?= $u->getDescription() ?></p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <p class="accent">Posts by <?= $u->getUsername() ?></p>
+
+    <div class="card-container" id="main-post-block">
+
+        {% foreach ($posts->getNextRow() as $post) : %}
+
+        <div class="card-wrapper">
+
+            <div class="card-photo">
+                <img class="photo" src="<?= $post->getPhoto() ?>" alt="photo">
+            </div>
+
+            <div class="card-title accent">
+                <a href="/anon_post?id=<?= $post->getId() ?>"><?= $post->getTitle() ?></a>
+            </div>
+
+            <div class="card-genre">
+                <p class="genre" id="categ" value=""><?= $post->getGenre() ?></p>
+            </div>
+
+            <div class="card-post-bottom" id="result">
+
+                <div class="bottom-user">
+                    <img class="mess-photo" src="<?= $post->getAuthorPhoto() ?>" alt="photo">
+                    <a class="bottom-username" href="/user?id=<?= $post->getAuthorId() ?>"><?= $post->getAuthor() ?></a>
+                </div>
+
+                <h1 class="card-post-date"><?= $post->getDate() ?></h1>
+
+            </div>
+
+        </div>
+        {% endforeach; %}
+    </div>
+
+</div>
+{% endblock %}
+
+{% block style_link %}
+<link rel="stylesheet" href="../web/style/style.css">{% endblock %}

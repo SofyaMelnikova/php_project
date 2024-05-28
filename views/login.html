@@ -1,0 +1,34 @@
+{% include 'layout.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block main-link %}"/"{% endblock %}
+
+{% block content %}
+
+<h1 class="accent">Login</h1>
+<div class="main-form">
+
+
+    <div class="post">
+
+        <form class="edit-profile" action="{{ $action }}" method="POST" >
+
+            <label class="label column">Enter email:
+                <input type="text" name="email"/>
+            </label>
+            <label class="label column">Enter password:
+                <input type="password" name="password"/>
+            </label>
+
+            <input type="submit" value="OK" class="save-btn">
+
+            <p>Do not have the account? <a href="/sign_up">Sing up</a></p>
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block style_link %}<link rel="stylesheet" href="../web/style/style.css">{% endblock %}

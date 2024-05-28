@@ -16,6 +16,7 @@ class UserMapper extends Mapper
     private PDOStatement $insert;
     private PDOStatement $update;
     private PDOStatement $delete;
+    private PDOStatement $selectByEmail;
 
 
     public function __construct()
@@ -41,6 +42,8 @@ class UserMapper extends Mapper
                 description = :description
             WHERE id = :id"
         );
+
+        $this->selectByEmail = $this->pdo->prepare("SELECT * FROM usr WHERE email = :email");
     }
 
     protected function doInsert(Model $model): Model
@@ -59,6 +62,7 @@ class UserMapper extends Mapper
     protected function doUpdate(Model $model): void
     {
         $this->update->execute([
+            ":id" => $model->getId(),
             ":username" => $model->getUsername(),
             ":email" => $model->getEmail(),
             ":password" => $model->getPassword(),
@@ -76,6 +80,20 @@ class UserMapper extends Mapper
     {
         $this->select->execute([":id"=>$id]);
         return $this->select->fetch(\PDO::FETCH_NAMED);
+    }
+
+    protected function doSelectByEmail(string $email): array|bool
+    {
+        $this->selectByEmail->execute([":email"=>$email]);
+        return $this->selectByEmail->fetch(\PDO::FETCH_NAMED);
+    }
+
+    public function SelectByEmail(string $email): ?Model
+    {
+
+        $res = $this->doSelectByEmail($email);
+        if (!$res) return null;
+        return $this->createObject($this->doSelectByEmail($email));
     }
 
     protected function doSelectAll(): array

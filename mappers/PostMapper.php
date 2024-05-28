@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace app\mappers;
 
+use app\core\Collection;
 use app\core\Mapper;
 use app\core\Model;
 use app\models\Post;
@@ -16,13 +17,16 @@ class PostMapper extends Mapper
     private PDOStatement $insert;
     private PDOStatement $update;
     private PDOStatement $delete;
+    private PDOStatement $selectByUserId;
+    private PDOStatement $selectByTitle;
+    private PDOStatement $selectByGenreId;
 
     public function __construct()
     {
         parent::__construct();
         $this->select = $this->pdo->prepare("SELECT * FROM post WHERE id = :id");
 
-        $this->selectAll = $this->pdo->prepare("SELECT * FROM post");
+        $this->selectAll = $this->pdo->prepare("SELECT * FROM post ORDER BY date DESC");
 
         $this->insert = $this->pdo->prepare(
             "INSERT INTO post(title, post_text, photo, genre_id, author_id, date) 
@@ -41,6 +45,12 @@ class PostMapper extends Mapper
                 date = :date
             WHERE id = :id"
         );
+
+        $this->selectByUserId = $this->pdo->prepare("select * from post where author_id = :userId ORDER BY date DESC");
+
+        $this->selectByTitle = $this->pdo->prepare("select * from post where title ilike :title ORDER BY date DESC");
+
+        $this->selectByGenreId = $this->pdo->prepare("select * from post where genre_id = :genreId ORDER BY date DESC");
     }
 
     protected function doInsert(Model $model): Model
@@ -78,6 +88,36 @@ class PostMapper extends Mapper
     {
         $this->select->execute([":id" => $id]);
         return $this->select->fetch(\PDO::FETCH_NAMED);
+    }
+
+    protected function doSelectByUserId(int $userId): array
+    {
+        $this->selectByUserId->execute([":userId" => $userId]);
+        return $this->selectByUserId->fetchAll(\PDO::FETCH_NAMED);
+    }
+
+    public function SelectByUserId(int $userId): Collection {
+        return new Collection($this->doSelectByUserId($userId), $this->getInstance());
+    }
+
+    protected function doSelectByTitle(string $title): array
+    {
+        $this->selectByTitle->execute([":title" => '%'.$title.'%']);
+        return $this->selectByTitle->fetchAll(\PDO::FETCH_NAMED);
+    }
+
+    public function SelectByTitle(string $title): Collection {
+        return new Collection($this->doSelectByTitle($title), $this->getInstance());
+    }
+
+    protected function doSelectByGenreId(int $genreId): array
+    {
+        $this->selectByGenreId->execute([":genreId" => $genreId]);
+        return $this->selectByGenreId->fetchAll(\PDO::FETCH_NAMED);
+    }
+
+    public function SelectByGenreId(int $genreId): Collection {
+        return new Collection($this->doSelectByGenreId($genreId), $this->getInstance());
     }
 
     protected function doSelectAll(): array

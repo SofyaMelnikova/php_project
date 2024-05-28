@@ -1,0 +1,67 @@
+{% include 'layout.html' %}
+
+{% block title %}ScreenHouse{% endblock %}
+
+{% block main-link %}"/"{% endblock %}
+{% block header-link %}<a href="/login">Login</a>{% endblock %}
+
+{% block content %}
+<div class="search">
+    <div class="search-box">
+        <input placeholder="type the movie title..." class="search-input" type="text" name="title" id="title-search"
+               onkeyup="searchTitle(document.getElementById('title-search').value)">
+    </div>
+
+    <div class="filter-box">
+        <select class="filter-selector" id="genre" name="genre" onchange="filterByGenre(document.getElementById('genre').value)">
+            <option value="" class="selector-value"> --GENRE--</option>
+            {% foreach ($genres->getNextRow() as $genre) : %}
+            <option value="<?= $genre->getId() ?>"><?= $genre->getName() ?></option>
+            {% endforeach; %}
+        </select>
+
+    </div>
+</div>
+
+<h3 class="accent">There are all posts about films!</h3>
+<div class="card-container" id="main-post-block">
+
+    {% foreach ($posts->getNextRow() as $post) : %}
+    <div class="card-wrapper">
+
+        <div class="card-photo">
+            <img class="photo" src="<?= $post->getPhoto() ?>" alt="photo">
+        </div>
+
+        <div class="card-title accent">
+            <a href="/anon_post?id=<?= $post->getId() ?>"><?= $post->getTitle() ?></a>
+        </div>
+
+        <div class="card-genre">
+            <p class="genre" id="categ" value=""><?= $post->getGenre() ?></p>
+        </div>
+
+        <div class="card-post-bottom" id="result">
+
+            <div class="bottom-user">
+                <img class="mess-photo" src="<?= $post->getAuthorPhoto() ?>" alt="photo">
+                <a class="bottom-username" href="/user?id=<?= $post->getAuthorId() ?>"><?= $post->getAuthor() ?></a>
+            </div>
+
+            <h1 class="card-post-date"><?= $post->getDate() ?></h1>
+
+        </div>
+
+    </div>
+    {% endforeach; %}
+</div>
+{% endblock %}
+
+{% block style_link %}
+<link rel="stylesheet" href="../web/style/style.css">
+{% endblock %}
+
+{% block script_tag %}
+<script src="../web/js/search.js"></script>
+<script src="../web/js/filter.js"></script>
+{% endblock %}

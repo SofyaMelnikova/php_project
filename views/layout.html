@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% yield title %}</title>
+    {% yield style_link %}
     <style> {%block styles %}
         table, th, td {
             border: 1px solid;
@@ -10,8 +11,31 @@
     {% endblock %}
     {% yield styles %}
     </style>
-</head>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Danfo&family=Jaro:opsz@6..72&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></head>
 <body>
- {% yield content %}
+<header>
+    <div class="navigation">
+        <div class="logo">
+            <a href={% yield main-link %} class="logo-title accent">ScreenHouse</a>
+        </div>
+        <div class="nav-btn">
+            <div class="nav-item">
+                {% yield header-link %}
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<div class="all-content">
+
+    {% yield content %}
+
+</div>
+
+{% yield script_tag %}
 </body>
 </html>

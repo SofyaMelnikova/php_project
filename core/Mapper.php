@@ -26,7 +26,7 @@ abstract class Mapper
 
     public function Update(Model $model): void
     {
-        $this->doUpdate();
+        $this->doUpdate($model);
     }
 
     public function Delete(int $id): void

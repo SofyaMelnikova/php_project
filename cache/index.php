@@ -4,8 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Введите данные</title>
+    
+    <style> 
+    
+        table, th, td {
+            border: 1px solid;
+        }
+    
+    </style>
 </head>
 <body>
+<header>
+    <a href=>ScreenHouse</a>
+    
+</header>
+
  
 <form action="<?= $action ?>" method="POST" style="display: flex; flex-direction: column; ">
 

@@ -1,0 +1,52 @@
+{% include 'layout.html' %}
+
+{% block title %}ScreenHouse{% endblock %}
+
+{% block main-link %}"/"{% endblock %}
+{% block header-link %}<a href="/login">Login</a>{% endblock %}
+
+{% block content %}
+
+<h1 class="handwrite"></h1>
+<div class="main-form">
+
+
+    <div class="post">
+        <div class="post-left">
+
+            <img src="<?= $post->getPhoto() ?>" class="card-post-img" alt="photo">
+
+
+            <div class="card-genre">
+                <p class="genre"><?= $post->getGenre() ?></p>
+            </div>
+
+        </div>
+        <div class="card-post post-right">
+            <div class="main-post-title">
+                <p class="post-title accent"><?= $post->getTitle() ?></p>
+            </div>
+
+            <div class="post-desc">
+                <p class="post-text"><?= $post->getPostText() ?></p>
+            </div>
+
+
+            <div class="right-bot">
+
+                <div class="bottom-user">
+                    <img class="mess-photo" src="<?= $post->getAuthorPhoto() ?>" alt="photo">
+                    <a class="bottom-username" href="/user?id=<?= $post->getAuthorId() ?>"><?= $post->getAuthor() ?></a>
+                </div>
+
+                <h1 class="post-date"><?= $post->getDate() ?></h1>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block style_link %}
+<link rel="stylesheet" href="../web/style/style.css">
+{% endblock %}

@@ -1,0 +1,41 @@
+{% include 'layout.html' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block main-link %}"/"{% endblock %}
+
+{% block content %}
+
+<h1 class="accent">Sign up</h1>
+<div class="main-form">
+
+    <div class="post">
+        <form class="edit-profile" action="{{ $action }}" method="POST">
+
+            <label class="label column">Enter username:
+                <input type="text" name="username" required/>
+            </label>
+            <label class="label column">Enter email:
+                <input type="text" name="email" required/>
+            </label>
+            <label class="label column">Enter password:
+                <input type="password" name="password" id="password" required/>
+            </label>
+            <label class="label column">Repeat password:
+                <input type="password" name="passwordConfirm" id="passwordConfirm" required/>
+            </label>
+
+            <input id="submit" type="submit" value="Let`s go" class="save-btn">
+
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block style_link %}
+<link rel="stylesheet" href="../web/style/style.css">
+{% endblock %}
+
+{% block script_tag %}
+<script src="../web/js/valid.js"></script>
+{% endblock %}
